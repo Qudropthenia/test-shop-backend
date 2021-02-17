@@ -1,6 +1,8 @@
 package ru.quadrophenia.test.testshop.domain.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "\"goods\"")
@@ -12,8 +14,26 @@ public class Goods {
     private String name;
     @Column(name = "price")
     private Double price;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "\"order_line\"",
+//            joinColumns = @JoinColumn(name = "student_id"),
+//            inverseJoinColumns = @JoinColumn(name = "course_id")
+//    )
+//    private Set<Order> orders = new HashSet<>();
 
     public Goods() {
+    }
+
+    public Goods(String name, Double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Goods(int id, String name, Double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
     }
 
     public Goods(int id) {
@@ -43,4 +63,12 @@ public class Goods {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+//    public Set<Order> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(Set<Order> orders) {
+//        this.orders = orders;
+//    }
 }
