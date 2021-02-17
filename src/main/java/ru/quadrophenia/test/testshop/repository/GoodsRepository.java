@@ -8,4 +8,5 @@ import java.util.List;
 public interface GoodsRepository extends CrudRepository<Goods, Integer> {
     List<Goods> findAll();
     Goods findById(int id);
+    List<Goods> findByNameContaining(String name);
 }

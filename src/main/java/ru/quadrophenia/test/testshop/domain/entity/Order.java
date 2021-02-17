@@ -1,6 +1,9 @@
 package ru.quadrophenia.test.testshop.domain.entity;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,9 +21,11 @@ public class Order {
     @Column(name = "address", length = 100)
     private String address;
     @ManyToMany(targetEntity = Goods.class, cascade = CascadeType.MERGE)
-    @JoinTable(name="order_line",
-            joinColumns=@JoinColumn(name="orders_id", nullable=false),
-            inverseJoinColumns=@JoinColumn(name="goods_id"))
+    @JoinTable(
+            name="\"order_line\"",
+            joinColumns=@JoinColumn(name="order_id", nullable=false),
+            inverseJoinColumns=@JoinColumn(name="goods_id")
+    )
     private Set<Goods> goods = new HashSet<>();
 
     public Order() {
