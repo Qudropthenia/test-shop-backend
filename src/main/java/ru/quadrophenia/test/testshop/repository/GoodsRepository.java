@@ -6,7 +6,7 @@ import ru.quadrophenia.test.testshop.domain.entity.Goods;
 import java.util.List;
 
 public interface GoodsRepository extends CrudRepository<Goods, Integer> {
-    List<Goods> findAll();
+    List<Goods> findAllByOrderByNameAsc();
     Goods findById(int id);
-    List<Goods> findByNameContaining(String name);
+    List<Goods> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
 }

@@ -30,7 +30,7 @@ public class SpringDataServiceImpl implements SpringDataService {
 
 	@Override
 	public List<Goods> listGoodsAll() {
-		return goodsRep.findAll();
+		return goodsRep.findAllByOrderByNameAsc();
 	}
 
 	@Override
@@ -56,9 +56,8 @@ public class SpringDataServiceImpl implements SpringDataService {
 		if (id != null && id > 0) {
 			Goods goods = goodsRep.findById(id.intValue());
 			if (goods != null) result.add(goods);
-		}
-		if (name != null) {
-			List<Goods> goodsList = goodsRep.findByNameContaining(name);
+		} else if (name != null) {
+			List<Goods> goodsList = goodsRep.findByNameContainingIgnoreCaseOrderByNameAsc(name);
 			if (goodsList != null) result = goodsList;
 		}
 
