@@ -6,13 +6,14 @@ import ru.quadrophenia.test.testshop.model.request.OrderRR;
 
 import java.util.List;
 
-public interface SpringDataService {
+public interface CriteriaApiService {
 	List<Goods> listGoodsAll();
 	Goods saveGoods(Goods g);
 	Boolean delGoods(int id);
 	List<Goods> findGoodsByIdName(Integer id, String name);
-	Order saveOrder(OrderRR orderRR);
 	List<Order> listOrdersAll();
+	Order saveOrder(OrderRR orderRR);
+	Order saveOrder(Order order);
 	Order findOrderById(int id);
 	Boolean delOrder(int id);
 }

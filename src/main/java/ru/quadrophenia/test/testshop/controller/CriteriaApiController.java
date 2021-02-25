@@ -5,26 +5,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.quadrophenia.test.testshop.domain.entity.Goods;
 import ru.quadrophenia.test.testshop.model.request.OrderRR;
-import ru.quadrophenia.test.testshop.service.SpringDataService;
+import ru.quadrophenia.test.testshop.service.CriteriaApiService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("spring-data")
-public class SpringDataController {
+@RequestMapping("criteria-api")
+public class CriteriaApiController {
 	@Autowired
-	private SpringDataService service;
+	private CriteriaApiService service;
+
+	@GetMapping("listGoodsAll")
+	public ResponseEntity<List<Goods>> listGoodsAll() {
+		return ResponseEntity.ok(service.listGoodsAll());
+	}
 
 	@PostMapping("saveGoods")
 	public ResponseEntity<?> saveNewGoods(
 			@RequestBody Goods goods
 	) {
 		return ResponseEntity.ok(service.saveGoods(goods));
-	}
-
-	@GetMapping("listGoodsAll")
-	public ResponseEntity<List<Goods>> listGoodsAll() {
-		return ResponseEntity.ok(service.listGoodsAll());
 	}
 
 	@GetMapping("gelGoods")
@@ -42,6 +42,11 @@ public class SpringDataController {
 		return ResponseEntity.ok(service.findGoodsByIdName(id, name));
 	}
 
+	@GetMapping("listOrdersAll")
+	public ResponseEntity<?> listOrdersAll() {
+		return ResponseEntity.ok(service.listOrdersAll());
+	}
+
 	@PostMapping("saveOrder")
 	public ResponseEntity<?> saveOrder(
 			@RequestBody OrderRR body
@@ -49,9 +54,11 @@ public class SpringDataController {
 		return ResponseEntity.ok(service.saveOrder(body));
 	}
 
-	@GetMapping("listOrdersAll")
-	public ResponseEntity<?> listOrdersAll() {
-		return ResponseEntity.ok(service.listOrdersAll());
+	@PostMapping("saveOrderV2")
+	public ResponseEntity<?> saveOrderV2(
+			@RequestBody OrderRR body
+	) {
+		return ResponseEntity.ok(service.saveOrder(body));
 	}
 
 	@GetMapping("findOrderById")
