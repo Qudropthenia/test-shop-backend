@@ -1,10 +1,11 @@
-package ru.quadrophenia.test.testshop.domain.request.body;
+package ru.quadrophenia.test.testshop.model.request;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.quadrophenia.test.testshop.domain.entity.Goods;
 import ru.quadrophenia.test.testshop.domain.entity.Order;
+import ru.quadrophenia.test.testshop.model.DateConvertor;
 
-import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +20,19 @@ public class OrderRR {
 	public OrderRR() {
 	}
 
+	@JsonCreator
+	public OrderRR(@JsonProperty("id") int id,
+	               @JsonProperty("client") String client,
+	               @JsonProperty("date") String date,
+	               @JsonProperty("address") String address,
+	               @JsonProperty("goods") Set<Goods> goods) {
+		this.id = id;
+		this.client = client;
+		this.date = date;
+		this.address = address;
+		this.goods = goods;
+	}
+
 	public OrderRR(Order order) {
 		setId(order.getId());
 		setClient(order.getClient());
@@ -26,7 +40,7 @@ public class OrderRR {
 		Date date = order.getDate();
 		String strDate = "";
 		try {
-			strDate = new SimpleDateFormat("dd.MM.yyyy").format(date);
+			strDate = DateConvertor.dateToStr(date);
 		} catch (Exception ex ) {
 		}
 		setDate(strDate);

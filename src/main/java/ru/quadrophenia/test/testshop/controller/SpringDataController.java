@@ -4,14 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.quadrophenia.test.testshop.domain.entity.Goods;
-import ru.quadrophenia.test.testshop.domain.entity.Order;
-import ru.quadrophenia.test.testshop.domain.request.body.OrderBody;
-import ru.quadrophenia.test.testshop.domain.request.body.OrderRR;
+import ru.quadrophenia.test.testshop.model.request.OrderRR;
 import ru.quadrophenia.test.testshop.service.SpringDataService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController

@@ -1,6 +1,6 @@
-package ru.quadrophenia.test.testshop.domain.report;
+package ru.quadrophenia.test.testshop.model.report;
 
-import ru.quadrophenia.test.testshop.domain.request.body.GoodsShortInfo;
+import ru.quadrophenia.test.testshop.model.request.GoodsShortInfo;
 
 import java.util.Objects;
 

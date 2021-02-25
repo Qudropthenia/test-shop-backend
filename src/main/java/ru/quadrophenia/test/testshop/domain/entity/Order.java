@@ -1,5 +1,8 @@
 package ru.quadrophenia.test.testshop.domain.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import ru.quadrophenia.test.testshop.model.CustomDateSerializer;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +20,7 @@ public class Order {
     @Column(name = "client", length = 100)
     private String client;
     @Column(name = "date")
+//    @JsonSerialize(using = CustomDateSerializer.class)
     private Date date;
     @Column(name = "address", length = 100)
     private String address;

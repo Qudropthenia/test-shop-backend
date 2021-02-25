@@ -2,19 +2,18 @@ package ru.quadrophenia.test.testshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
 import ru.quadrophenia.test.testshop.domain.entity.Goods;
 import ru.quadrophenia.test.testshop.domain.entity.Goods_;
+import ru.quadrophenia.test.testshop.domain.entity.Order;
+import ru.quadrophenia.test.testshop.domain.entity.Order_;
+import ru.quadrophenia.test.testshop.model.request.OrderRR;
+import ru.quadrophenia.test.testshop.model.factory.OrderFactory;
 import ru.quadrophenia.test.testshop.service.CriteriaApiService;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -74,5 +73,57 @@ public class CriteriaApiServiceImpl implements CriteriaApiService {
 		List<Goods> resultList = entityManager.createQuery(crQuery).getResultList();
 
 		return resultList;
+	}
+
+	@Override
+	public List<Order> listOrdersAll() {
+		CriteriaBuilder crBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Order> crQuery = crBuilder.createQuery(Order.class);
+		Root<Order> orderRoot = crQuery.from(Order.class);
+		List<Order> resultList = entityManager.createQuery(crQuery).getResultList();
+
+		return resultList;
+	}
+
+	@Override
+	@Transactional
+	public Order saveOrder(OrderRR orderRR) {
+		Order order = OrderFactory.getOrder(orderRR);
+		entityManager.merge(order);
+
+		return order;
+	}
+
+	@Override
+	public Order saveOrder(Order order) {
+		entityManager.merge(order);
+
+		return order;
+	}
+
+	@Override
+	public Order findOrderById(int id) {
+//		return entityManager.find(Order.class, id);
+		CriteriaBuilder crBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Order> crQuery = crBuilder.createQuery(Order.class);
+		Root<Order> orderRoot = crQuery.from(Order.class);
+		crQuery.where(crBuilder.equal(orderRoot.get(Order_.id), id));
+		Order result = entityManager.createQuery(crQuery).getSingleResult();
+
+		return result;
+	}
+
+	@Override
+	public Boolean delOrder(int id) {
+		Boolean result = true;
+		Order order = null;
+		order = entityManager.find(Order.class, id);
+		try {
+			entityManager.remove(order);
+		} catch (Exception e) {
+			result = false;
+		}
+
+		return result;
 	}
 }

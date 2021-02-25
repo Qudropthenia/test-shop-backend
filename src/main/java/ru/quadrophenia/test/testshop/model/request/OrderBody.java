@@ -1,4 +1,4 @@
-package ru.quadrophenia.test.testshop.domain.request.body;
+package ru.quadrophenia.test.testshop.model.request;
 
 import ru.quadrophenia.test.testshop.domain.entity.Order;
 
